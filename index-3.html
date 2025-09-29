@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FAST VOULT VPN</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Poppins',sans-serif;
+  color:#e6eef8;
+  line-height:1.5;
+  overflow-x:hidden;
+  background: linear-gradient(270deg, #0f172a, #1e40af, #3b82f6, #60a5fa);
+  background-size: 800% 800%;
+  animation: gradientAnimation 20s ease infinite;
+  position: relative;
+}
+body::before {
+  content:"";
+  position:absolute;
+  top:0; left:0; width:100%; height:100%;
+  background: url('data:image/svg+xml;utf8,<svg width="100%" height="100%" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%231fb6ff" fill-opacity="0.1" d="M0,160L60,170.7C120,181,240,203,360,208C480,213,600,203,720,181.3C840,160,960,128,1080,133.3C1200,139,1320,181,1380,202.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>') repeat-x;
+  background-size: cover;
+  animation: waveAnimation 15s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes gradientAnimation {0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }}
+@keyframes waveAnimation {0% { transform: translateX(0); } 100% { transform: translateX(-50%); }}
+header, nav, section, footer, .whatsapp-fab, .top-btn, .toast {position: relative; z-index: 1;}
+header{background:rgba(0,0,0,0.6);padding:44px 16px;text-align:center;position:relative}
+header h1{font-size:2.4rem;color:#fff;text-shadow:0 0 8px #38bdf8}
+header p{margin-top:8px;color:#eaf6ff}
+#hamburger{position:absolute;top:20px;right:20px;cursor:pointer;display:none;flex-direction:column;gap:5px}
+#hamburger span{width:28px;height:3px;background:#fff;border-radius:2px}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:#111827;padding:8px;position:sticky;top:0;z-index:30}
+nav a{color:#e6eef8;padding:8px 12px;text-decoration:none;border-radius:8px;font-weight:600}
+nav a:hover{background:#1f2937}
+@media(max-width:768px){
+  nav{display:none;flex-direction:column;width:100%;position:absolute;top:70px;left:0}
+  nav.show{display:flex}
+  #hamburger{display:flex}
+  nav a{margin:8px 0}
+}
+section{max-width:1000px;margin:22px auto;padding:22px;background:rgba(0,0,0,0.55);border-radius:12px}
+h2{color:#7dd3fc;margin-bottom:12px;text-align:center}
+.app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:14px}
+.app-card{background:rgba(15,23,42,0.9);border-radius:12px;padding:18px;box-shadow:0 8px 30px rgba(0,0,0,.5);text-align:center;cursor:pointer;transition:0.3s}
+.app-card:hover{transform:scale(1.03)}
+.app-card h3{margin-bottom:10px}
+.app-card p{color:#cbd5e1;font-size:.95rem;margin-bottom:14px}
+.app-networks{display:none;flex-direction:column;gap:8px;margin-top:10px}
+.net-btn{padding:10px;border-radius:8px;border:none;background:#38bdf8;color:#021728;font-weight:700;cursor:pointer;text-decoration:none;transition:0.3s;margin:3px 0;display:block;text-align:center;}
+.net-btn:hover{background:#0ea5e9;color:#fff}
+.toast{position:fixed;right:20px;bottom:20px;background:#16a34a;color:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.4);opacity:0;transform:translateY(10px);transition:all .3s;z-index:60}
+.whatsapp-fab{position:fixed;right:18px;bottom:86px;background:#25d366;color:#022;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;text-decoration:none;box-shadow:0 8px 30px rgba(37,211,102,.18);z-index:60}
+.top-btn{position:fixed;right:18px;bottom:150px;background:#38bdf8;color:#022;padding:10px;border-radius:50%;border:none;cursor:pointer}
+.footer{padding:18px;text-align:center;color:#94a3b8}
+.input,select{width:100%;max-width:480px;padding:10px;border-radius:10px;border:2px solid #38bdf8;background:#081024;color:#f1f5f9;margin:8px 0}
+.btn{background:#38bdf8;color:#071225;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
+.btn:hover{background:#0ea5e9}
+.admin-badge{display:inline-block;background:#0ea5e9;color:#04263b;padding:6px 10px;border-radius:999px;font-weight:700;margin-top:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>FAST VOULT VPN</h1>
+  <p>Your all-in-one VPN App Launcher</p>
+  <div id="adminLabel" style="margin-top:10px;display:none"></div>
+  <div id="hamburger"><span></span><span></span><span></span></div>
+</header>
+
+<nav id="navMenu">
+  <a href="#home">Home</a>
+  <a href="#giveaway">Giveaway</a>
+  <a href="#apps">Apps</a>
+  <a href="#team">Team</a>
+  <a href="#vpn-manager">Admin</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="home">
+  <h2>Welcome</h2>
+  <p>Welcome to <strong>FAST VOULT VPN</strong> — choose your VPN app, then pick your network to download configs. Admins can update links anytime.</p>
+</section>
+
+<section id="giveaway">
+  <h2>🎉 Giveaway</h2>
+  <p>Subscribe to <a href="https://www.youtube.com/@Master_T-1" target="_blank">Master T YouTube Channel</a> and stand a chance to WIN a 25Mbps FAST VPN! 🚀</p>
+</section>
+
+<section id="apps">
+  <h2>Apps</h2>
+  <p id="lastUpdated" style="color:#9ae6b4;text-align:center;margin-bottom:12px">Last Updated: never</p>
+  <div class="app-grid">
+    <!-- VPN App Cards -->
+    <script>
+      const apps=["hat","netmod","dark","tls","http","letsvpn","npv","open"];
+      const appNames=["HA Tunnel","NetMod","Dark Tunnel","TLS Tunnel","HTTP Custom","Let's VPN Go","Npv Tunnel","Open Tunnel"];
+      apps.forEach((app,i)=>{
+        document.write(`<div class="app-card" onclick="toggleNetworks(this,event)">
+          <h3>${appNames[i]}</h3>
+          <p>Configs for Vodacom, MTN, Telkom</p>
+          <div class="app-networks" id="${app}-container"></div>
+        </div>`);
+      });
+    </script>
+  </div>
+</section>
+
+<section id="team">
+  <h2>Our Team</h2>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <div class="app-card">
+      <h3>MAVEST</h3><p>Founder</p><div class="admin-badge">ADMIN</div>
+      <a class="btn" href="https://wa.me/27787834543" target="_blank">WhatsApp</a>
+    </div>
+    <div class="app-card">
+      <h3>TRIPZ TR</h3><p>Tech</p><div class="admin-badge">ADMIN</div>
+      <a class="btn" href="https://wa.me/27646429920" target="_blank">WhatsApp</a>
+    </div>
+    <div class="app-card">
+      <h3>MASTER</h3><p>MANAGER</p><div class="admin-badge">ADMIN</div>
+      <a class="btn" href="https://wa.me/27815923384" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section id="vpn-manager">
+  <h2>🔐 Admin Panel</h2>
+  <div id="admin-locked">
+    <input id="vpn-password" type="password" placeholder="Enter password">
+    <button class="btn" onclick="checkPassword()">Unlock</button>
+    <p id="login-msg"></p>
+  </div>
+  <div id="admin-panel" style="display:none;max-width:820px;margin:0 auto">
+    <p>Admin mode: <strong id="adminNameDisplay"></strong></p>
+    <select id="admin-app" class="input">
+      <option value="hat">HA Tunnel</option>
+      <option value="netmod">NetMod</option>
+      <option value="dark">Dark Tunnel</option>
+      <option value="tls">TLS Tunnel</option>
+      <option value="http">HTTP Custom</option>
+      <option value="letsvpn">Let's VPN Go</option>
+      <option value="npv">Npv Tunnel</option>
+      <option value="open">Open Tunnel</option>
+    </select>
+    <select id="admin-network" class="input">
+      <option value="vodacom">Vodacom</option>
+      <option value="mtn">MTN</option>
+      <option value="telkom">Telkom</option>
+    </select>
+    <input id="admin-link" type="text" placeholder="Paste full file URL here" class="input"/>
+    <button class="btn" onclick="saveAppNetworkLink()">Save Link</button>
+    <p id="update-msg" style="margin-top:10px"></p>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: support@fastvoultvpn.com</p>
+  <p>WhatsApp: +27 78 783 4543 | +27 64 642 9920 | +27 81 592 3384</p>
+</section>
+
+<footer class="footer">© 2025 FAST VOULT VPN — Created with ❤️</footer>
+<a class="whatsapp-fab" href="https://wa.me/27787834543" target="_blank">🗣️</a>
+<button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+<div id="toast" class="toast"></div>
+
+<script>
+const ADMIN_PASSWORD = "MAVTST 2.1";
+let isAdmin = false;
+
+/* Hamburger */
+const hamburger=document.getElementById("hamburger");
+const navMenu=document.getElementById("navMenu");
+hamburger.addEventListener("click",()=>{navMenu.classList.toggle("show");});
+
+/* Toggle networks */
+function toggleNetworks(card,event){
+  const networks = card.querySelector(".app-networks");
+  networks.style.display = networks.style.display==="flex"?"none":"flex";
+}
+
+/* Show toast */
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent = msg; t.style.opacity=1;
+  setTimeout(()=>t.style.opacity=0,3000);
+}
+
+/* Admin password */
+function checkPassword(){
+  const pass=document.getElementById("vpn-password").value;
+  if(pass===ADMIN_PASSWORD){
+    document.getElementById("admin-locked").style.display="none";
+    document.getElementById("admin-panel").style.display="block";
+    document.getElementById("adminNameDisplay").textContent="ADMIN";
+    isAdmin = true;
+    showToast("Admin unlocked!");
+    // Show delete buttons
+    const apps = ["hat","netmod","dark","tls","http","letsvpn","npv","open"];
+    const networks = ["vodacom","mtn","telkom"];
+    apps.forEach(app => networks.forEach(net => updateAppLinks(app, net)));
+  } else document.getElementById("login-msg").textContent="Wrong password!";
+}
+
+/* Save link (max 25) */
+function saveAppNetworkLink(){
+  const app=document.getElementById("admin-app").value;
+  const network=document.getElementById("admin-network").value;
+  const url=document.getElementById("admin-link").value.trim();
+
+  if(!url) return showToast("Enter a valid URL");
+
+  const key=`${app}-${network}`;
+  let arr=JSON.parse(localStorage.getItem(key))||[];
+  if(arr.length>=25) return showToast("Max 25 files per network reached");
+  arr.push(url);
+  localStorage.setItem(key,JSON.stringify(arr));
+  updateAppLinks(app,network);
+  document.getElementById("admin-link").value="";
+  showToast("Link added!");
+  document.getElementById("lastUpdated").textContent="Last Updated: "+new Date().toLocaleString();
+}
+
+/* Update links in cards */
+function updateAppLinks(app,network){
+  const key=`${app}-${network}`;
+  const container=document.getElementById(`${app}-container`);
+  const links=JSON.parse(localStorage.getItem(key))||[];
+  if(!container) return;
+  container.innerHTML="";
+  links.forEach((link,idx)=>{
+    const wrapper = document.createElement("div");
+    wrapper.style.display="flex";
+    wrapper.style.alignItems="center";
+    wrapper.style.justifyContent="space-between";
+    wrapper.style.margin="4px 0";
+
+    const a=document.createElement("a");
+    a.href=link; 
+    a.target="_blank";
+    a.rel="noopener noreferrer";
+    a.className="net-btn";
+    a.textContent=`${network} File ${idx+1}`;
+    a.style.flex="1";
+    a.style.marginRight="6px";
+    a.addEventListener("click",(e)=>e.stopPropagation());
+    wrapper.appendChild(a);
+
+    if(isAdmin){
+      const delBtn=document.createElement("button");
+      delBtn.textContent="🗑️";
+      delBtn.style.background="#ef4444";
+      delBtn.style.border="none";
+      delBtn.style.color="#fff";
+      delBtn.style.borderRadius="6px";
+      delBtn.style.cursor="pointer";
+      delBtn.style.padding="4px 8px";
+      delBtn.addEventListener("click",(e)=>{
+        e.stopPropagation();
+        deleteLink(app, network, idx);
+      });
+      wrapper.appendChild(delBtn);
+    }
+
+    container.appendChild(wrapper);
+  });
+  if(links.length>0) container.style.display="flex";
+}
+
+/* Delete link */
+function deleteLink(app, network, index){
+  const key=`${app}-${network}`;
+  let arr=JSON.parse(localStorage.getItem(key))||[];
+  arr.splice(index,1);
+  localStorage.setItem(key, JSON.stringify(arr));
+  updateAppLinks(app, network);
+  showToast("File deleted!");
+}
+
+/* Initialize saved links on page load */
+window.addEventListener("DOMContentLoaded",()=>{
+  const apps = ["hat","netmod","dark","tls","http","letsvpn","npv","open"];
+  const networks = ["vodacom","mtn","telkom"];
+  apps.forEach(app => networks.forEach(net => updateAppLinks(app, net)));
+});
+</script>
+
+</body>
+</html>
